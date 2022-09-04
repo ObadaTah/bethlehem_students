@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block title %}<title>Bethlehem Students</title>{% endblock %}
+    {% load static %}
+
+
+    <link rel="stylesheet" href="{% static 'theme/assets/vendors/core/core.css' %}">
+    <link rel="stylesheet" href="{% static 'theme/assets/css/demo_1/style.css' %}">
+    <link rel="stylesheet" href="{% static 'theme/assets/fonts/feather-font/css/iconfont.css' %}">
+    <link rel="stylesheet" href="{% static 'theme/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css' %}">
+    <link rel="stylesheet" href="{% static 'theme/assets/vendors/sweetalert2/sweetalert2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'theme/assets/vendors/dropify/dist/dropify.min.css' %}">
+    <link rel="stylesheet" href="{% static 'theme/assets/vendors/jquery-tags-input/jquery.tagsinput.min.css' %}">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary"
+        style="position: static; left: 0; padding-left: 2rem; width: 100%;">
+        <a class="navbar-brand" href="{% url 'home' %}">Bethlehem University Students</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+            aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor02">
+
+        </div>
+    </nav>
+
+</head>
+
+<br>
+<br>
+<br>
+<br>
+
+<body dir="rtl">
+    <div class="main-wrapper">
+        {% block content %} {% endblock %}
+
+
+    </div>
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <footer class="footer d-flex flex-column flex-md-row align-items-center justify-content-between">
+        <p class="text-muted text-center text-md-left">Copyright © 2022 <a
+                href="https://www.instagram.com/aaboduh_tahboub/" target="_blank">Obada Tahboub</a>. All rights reserved
+        </p>
+        <p class="text-muted text-center text-md-left mb-0 d-none d-md-block">Handcrafted With <em
+                class="mb-1 text-primary ml-1 icon-small" data-feather="heart"></em></p>
+    </footer>
+    <script src="{% static 'theme/assets/vendors/promise-polyfill/polyfill.min.js' %}"></script>
+    <script src="{% static 'theme/assets/vendors/core/core.js' %}"></script>
+    <script src="{% static 'theme/assets/js/form-validation.js' %}"></script>
+    <script src="{% static 'theme/assets/vendors/jquery-validation/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'theme/assets/vendors/jquery-tags-input/jquery.tagsinput.min.js' %}"></script>
+    <script src="{% static 'theme/assets/vendors/promise-polyfill/polyfill.min.js' %}"></script>
+    <script src="{% static 'theme/assets/js/template.js' %}"></script>
+    <script src="{% static 'theme/assets/vendors/inputmask/jquery.inputmask.bundle.min.js' %}"></script>
+    <script src="{% static 'theme/assets/vendors/feather-icons/feather.min.js' %}"></script>
+    <script src="{% static 'theme/assets/vendors/dropify/dist/dropify.min.js' %}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <script src="{% static 'theme/assets/js/bootstrap-maxlength.js' %}"></script>
+</body>
+
+</html>

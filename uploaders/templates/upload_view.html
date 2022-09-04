@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container">
+
+
+<div class="card" style="width: 80%;">
+
+<div class="card-body" dir="rtl" style="text-align: right;">
+    <h3 style="text-align: center;">{{upload.upload_course_code}}</h>
+    <h4 class="card-title">{{upload.upload_name}}</h4>
+    <p class="card-description">
+        {{upload.upload_description}}
+    </p>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                   
+                    <th>
+                        اسم الملف
+                    </th>
+                   
+                    <th>
+                        نوع الملف
+                    </th>
+
+                    <th>
+                        الحجم
+                    </th>
+
+                    <th>
+                       تحميل الملف
+                    </th>
+                </tr>
+
+            </thead>
+            <tbody>
+                {% for file in files %}
+                
+                <tr>
+                    {% for key, value in file.items %}
+                        {% if value|length < 50 %}
+                            <td>
+                                {{ value }}
+                            </td>
+                        {% else %}
+                            <td>
+                                <form action="{% url 'download_file' value %}">
+                                    <button type="submit"  class="btn btn-success mb-1 mb-md-0">Download</button>
+                                
+                                </form>
+                            </td>
+
+                        {% endif %}
+                    {% endfor %}
+                   
+                </tr>
+                
+                
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+</div>
+</div>
+
+
+
+
+{% endblock %}
