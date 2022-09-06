@@ -87,6 +87,8 @@ def upload_view(request, upload_id):
     upload = {'upload_name': upload.upload_name, 'upload_description': upload.upload_description, 'upload_course_code': Upload.CHOICESC[upload.upload_course_code][1],}
     if platform.system() == 'Windows':
         new = MEDIA_ROOT.replace('\\', '/')
+    else:
+        new = MEDIA_ROOT
     for file in files:
         directory = (new+'/'+file.fileClass.directory).replace('/', '(slash)')
         file_list.append({"file_name": file.fileClass.fileName,

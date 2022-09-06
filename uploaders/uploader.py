@@ -37,8 +37,8 @@ def handle_uploaded_file(file):
     if extension == "":
         raise Exception('ErrorFileType')
         
-    if not path.exists(f"uploads/{extension[1:]}"):
-        os.mkdir(f"uploads/{extension[1:]}")
+    if not path.exists(f"upload/{extension[1:]}"):
+        os.mkdir(f"upload/{extension[1:]}")
     
 
     result = "".join(strftime(f"%d%b%Y_%H-%M-%S {time.time()}", gmtime()))
