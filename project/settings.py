@@ -29,8 +29,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
 '161.35.100.167',
-'bethlehemstudents.com'
-
+'bethlehemstudents.com',
+'127.0.0.1'
 ]
 
 

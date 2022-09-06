@@ -21,21 +21,21 @@ def get_client_ip(request):
         ip = request.META.get('REMOTE_ADDR')
     return ip
 
-
-@csrf_exempt
+@csrf_protect
 def uploader(request):
     if request.method == 'POST':
+        
         try:
             directory, fileName, fileType = handle_uploaded_file(
                 request.FILES['file'])
             file = Files(fileName=fileName, file_type=fileType,
                          directory=directory)
             file.save()
-            ip = get_client_ip(request)
+            ip = request.POST.get('csrfmiddlewaretoken')
             if ip in ips_files:
-                ips_files[ip].append(file.id)
+                ips_files[request.POST.get('csrfmiddlewaretoken')].append(file.id)
             else:
-                ips_files[ip] = [file.id]
+                ips_files[request.POST.get('csrfmiddlewaretoken')] = [file.id]
         except Exception as x:
             print(x)
             return HttpResponseRedirect('')  # error page
@@ -44,18 +44,18 @@ def uploader(request):
     return render(request, 'upload.html', {})
 
 
-@csrf_exempt
+@csrf_protect
 def add(request):
     if request.method == 'POST':
         upload = Upload(upload_name=request.POST['upload_name'], upload_description=request.POST['upload_description'],
                         upload_course_code=int(request.POST['upload_course_code']), upload_type=int(request.POST['upload_type']))
         upload.save()
         try:
-            for i in ips_files[get_client_ip(request)]:
+            for i in ips_files[request.POST.get('csrfmiddlewaretoken')]:
                 uploadsFiles = UploadsFiles(
                     uploadClass=upload, fileClass=Files.objects.get(id=i))
                 uploadsFiles.save()
-            del ips_files[get_client_ip(request)]
+            del ips_files[request.POST.get('csrfmiddlewaretoken')]
         except Exception as x:
             print(x)
 
@@ -82,7 +82,7 @@ def course_view(request):
 def upload_view(request, upload_id):
     upload = Upload.objects.get(id=upload_id)
     files = UploadsFiles.objects.filter(uploadClass=upload)
-    file_list = []
+    file_list = [] 
     new = ''
     upload = {'upload_name': upload.upload_name, 'upload_description': upload.upload_description, 'upload_course_code': Upload.CHOICESC[upload.upload_course_code][1],}
     if platform.system() == 'Windows':

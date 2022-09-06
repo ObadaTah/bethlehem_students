@@ -2,4 +2,7 @@
 media/
 db.sqlite3
 uploads/
+upload/
 static/
+*.pyc
+__pycache__/
