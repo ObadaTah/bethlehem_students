@@ -10,16 +10,26 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 # Create your views here.
 from .models import *
 
-ips_files = {}
+def read_tmp():
+    ips_files = {}
+    with open('tmp.txt', 'r') as f:
+        for line in f:
+            ips_files[line.split(':')[0]] = list(map(int, line.split(':')[1].split(',')))
+        f.close()
+    print(ips_files)
+    return ips_files
 
-
-def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    return ip
+def write_tmp(ips_files):
+    with open('tmp.txt', 'w') as f:
+        print(ips_files)
+        for ip in ips_files:
+            data = ""
+            for id in ips_files[ip]:
+                data += str(id)+','
+            f.write(ip + ':' + data[:-1]+'\r')
+            
+        f.close()
+    return ips_files
 
 @csrf_protect
 def uploader(request):
@@ -31,11 +41,13 @@ def uploader(request):
             file = Files(fileName=fileName, file_type=fileType,
                          directory=directory)
             file.save()
+            ips_files = read_tmp()
             ip = request.POST.get('csrfmiddlewaretoken')
-            if ip in ips_files:
+            if ip in ips_files.keys():
                 ips_files[request.POST.get('csrfmiddlewaretoken')].append(file.id)
             else:
                 ips_files[request.POST.get('csrfmiddlewaretoken')] = [file.id]
+            write_tmp(ips_files)
         except Exception as x:
             print(x)
             return HttpResponseRedirect('')  # error page
@@ -51,11 +63,13 @@ def add(request):
                         upload_course_code=int(request.POST['upload_course_code']), upload_type=int(request.POST['upload_type']))
         upload.save()
         try:
+            ips_files = read_tmp()
             for i in ips_files[request.POST.get('csrfmiddlewaretoken')]:
                 uploadsFiles = UploadsFiles(
                     uploadClass=upload, fileClass=Files.objects.get(id=i))
                 uploadsFiles.save()
             del ips_files[request.POST.get('csrfmiddlewaretoken')]
+            write_tmp(ips_files)
         except Exception as x:
             print(x)
 

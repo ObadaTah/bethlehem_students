@@ -4,5 +4,7 @@ db.sqlite3
 uploads/
 upload/
 static/
+**/*.pyc
 *.pyc
-__pycache__/
+*/__pycache__/*
+tmp.txt
