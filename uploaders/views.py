@@ -109,15 +109,16 @@ def upload_view(request, upload_id):
                          "file_type": file.fileClass.file_type, "file_size": os.path.getsize(new+'/'+file.fileClass.directory), "directory": directory,})
     return render(request, 'upload_view.html', {'upload': upload, 'files': file_list})
 
-
+import magic
 def download_file(request, filepath):
 
     # Open the file for reading content
     filepath = filepath.replace('(slash)', '/')
     if os.path.exists(filepath):
         with open(filepath, 'rb') as fh:
+            mime = magic.Magic(mime=True)
             response = HttpResponse(
-                fh.read(), content_type="application/vnd.ms-excel")
+                fh.read(), content_type=mime.from_file(filepath) )
             response['Content-Disposition'] = 'inline; filename=' + \
                 os.path.basename(filepath)
             return response
