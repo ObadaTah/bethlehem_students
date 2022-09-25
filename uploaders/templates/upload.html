@@ -2,7 +2,14 @@
 
 {% block content %}
 
+<style>
+    .required-field::before {
+        content: "*";
+        color: red;
+        float: right;
+      }
 
+</style>
 
 <div class="container" style="align-items: center;">
 
@@ -12,7 +19,7 @@
     <div class="card">
         <div class="row">
             <div class="card-body">
-                <h3 style="text-align: center;">ضع ملفاتك هنا</h3>
+                <h3 style="text-align: center;" class="required-field">ضع ملفاتك هنا</h3>
                 <br>
 
                 <form action="{% url 'uploader' %}" method="post" class="dropzone" id="my-awesome-dropzone">
@@ -36,7 +43,7 @@
             <div class="card-body">
                 <div class="form-group row">
                     <div class="col-lg-3">
-                        <label class="col-form-label">اسم الملفات</label>
+                        <label class="col-form-label required-field ">اسم الملفات</label>
                     </div>
                     <div class="col-lg-8">
                         <input required class="form-control" maxlength="25" name="upload_name" id="upload_name" type="text"
@@ -45,7 +52,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-3">
-                        <label class="col-form-label">نوع الملفات</label>
+                        <label class="col-form-label" required-field >نوع الملفات</label>
                     </div>
                     <div class="col-lg-8">
                         <div class="form-group">
@@ -66,7 +73,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-3">
-                        <label class="col-form-label">المادة</label>
+                        <label class="col-form-label required-field">المادة</label>
                     </div>
                     <div class="col-lg-8">
 
@@ -987,7 +994,7 @@
                 </div>
                 <div class="form-group mb-0 row">
                     <div class="col-lg-3">
-                        <label class="col-form-label">شرح عن ما في الملفات</label>
+                        <label class="col-form-label" required-field>شرح عن ما في الملفات</label>
                     </div>
                     <div class="col-lg-8">
                         <textarea required id="maxlength-textarea" name="upload_description" class="form-control" maxlength="100"
@@ -995,7 +1002,7 @@
                     </div>
                 </div>
             </div>
-            <h5 style="text-align: center;">لا تقم بالحفظ الا عند انتهاء رفع كل الملفات</h5>
+            <h5 style="text-align: center; color: red;" >لا تقم بالحفظ الا عند انتهاء رفع كل الملفات</h5>
             <br>
             <input class="btn btn-primary" type="submit" value="حفظ"
                 style="position: center;align-items: center;margin-left: 35%;width:30%">
